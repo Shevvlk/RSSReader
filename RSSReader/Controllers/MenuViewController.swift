@@ -95,6 +95,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
             cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
         
+    
         cell.textLabel?.font = UIFont.systemFont(ofSize: 18)
         cell.textLabel?.text = channel.nameurl
         

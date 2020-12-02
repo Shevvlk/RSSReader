@@ -25,12 +25,11 @@ extension MenuViewController {
             
             DispatchQueue.global(qos: .userInteractive).async {
                 let storageManager = StorageManager()
+                storageManager.initializationRealm()
                 if storageManager.searchChannelByURL(urlAddressTextFieldText) != nil {
-                    DispatchQueue.main.async {
+                    storageManager.preservationOfOpenChannels(urlAddressTextFieldText)
+                    DispatchQueue.main.async { [unowned self] in
                         self.callAlertExclusion(title: "Канал уже добален")
-                        let storageManager = StorageManager()
-                        storageManager.initializationRealm()
-                        storageManager.preservationOfOpenChannels(urlAddressTextFieldText)
                     }
                 } else {
                     AddManager().addingСhannels(nameUrlTextFieldText, urlAddressTextFieldText)

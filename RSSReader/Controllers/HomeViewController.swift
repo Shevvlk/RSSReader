@@ -12,7 +12,7 @@ class HomeViewController: UITableViewController {
     let barTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemBlue
-        label.font = UIFont(name: "Al Nile", size: 25)
+        label.font = UIFont.systemFont(ofSize: 25)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,7 +74,7 @@ class HomeViewController: UITableViewController {
             cell.highlighting.backgroundColor = #colorLiteral(red: 0, green: 0.5294117647, blue: 1, alpha: 0.2142032851)
         }
         
-        cell.headingLabel.font = UIFont(name: "Al Nile", size: 18)
+        cell.headingLabel.font = UIFont.systemFont(ofSize: 18)
         
         cell.headingLabel.text = channelFirst.arrayModels[indexPath.row].title
         cell.subtitleLabel.text = channelFirst.arrayModels[indexPath.row].date
@@ -94,10 +94,13 @@ class HomeViewController: UITableViewController {
         storageManager.rewritingAnOpenArticle(channelFirst, indexPath.row)
         
         let sample = channelFirst.arrayModels[indexPath.row].depiction
-        
-        newsReaderController.newsText.attributedText = sample.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "Arial", size: 18), csscolor: "black", lineheight: 5, csstextalign: "left")
-        
-        tableView.reloadData()
+
+        DispatchQueue.global().async {
+            let text = sample.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "Arial", size: 18), csscolor: "black", lineheight: 5, csstextalign: "left")
+            DispatchQueue.main.async {
+                newsReaderController.newsText.attributedText = text
+            }
+        }
         
         self.navigationController?.pushViewController(newsReaderController, animated: true)
     }
