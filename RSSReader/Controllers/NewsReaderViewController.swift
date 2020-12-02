@@ -16,7 +16,6 @@ class NewsReaderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         view.addSubview(newsText)
         

@@ -1,14 +1,8 @@
-//
-//  ContainerViewController.swift
-//  RSSReader
-//
-//  Created by Alexandr on 02.12.2020.
-//
 
 import UIKit
 
 class ContainerViewController: UIViewController {
-
+    
     var menuController:    MenuViewController!
     var homeController:    HomeViewController!
     var centerController:  UIViewController!
@@ -18,14 +12,13 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         configureHomeController ()
-      
+        
     }
     
     // MARK: - Создание дочерних контроллеров представления
     func configureHomeController () {
-      
         homeController = HomeViewController()
         homeController.delegate = self
         centerController = UINavigationController(rootViewController: homeController)
@@ -39,7 +32,7 @@ class ContainerViewController: UIViewController {
     func configureMenuController() {
         if menuController == nil {
             menuController = MenuViewController()
-          menuController.delegateMenuController = self
+            menuController.delegateMenuController = self
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
             menuController.didMove(toParent: self )
@@ -115,5 +108,5 @@ extension ContainerViewController: MenuControllerDelegate {
         showMenuController (shouldExpand: isExpanded)
         homeController.tableView.reloadData()
     }
-
+    
 }

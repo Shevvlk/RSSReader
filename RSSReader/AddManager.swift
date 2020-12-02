@@ -18,6 +18,7 @@ class AddManager {
     func addingСhannels(_ nameUrl: String, _ urlAddress: String) {
         let channel = Channel(nameUrl, urlAddress)
         let arrayModels = parsingArticles(urlAddress)
+        StorageManager().initializationRealm()
         StorageManager().saveNewChannel(channel, arrayModels)
     }
     

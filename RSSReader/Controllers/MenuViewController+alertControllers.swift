@@ -5,8 +5,8 @@ import RealmSwift
 
 extension MenuViewController {
     
-    // MARK: - Добавление канала
-    @objc func callAlert () {
+    // MARK: - AlertController для Добавление канала
+    @objc func callAlertAdding () {
         
         let alertController = UIAlertController(title: "Добавление канала", message: "Введите название канала и URL", preferredStyle: .alert)
         
@@ -19,15 +19,22 @@ extension MenuViewController {
             guard let textFieldLast = alertController.textFields?.last, let urlAddressTextFieldText = textFieldLast.text else { return }
             
             guard let _ = URL(string: urlAddressTextFieldText) else {
-                let alertController = UIAlertController(title: "URL адрес не найден", message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "OK", style: .cancel)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true)
+                self.callAlertExclusion(title:"URL адрес не найден")
                 return
             }
             
             DispatchQueue.global(qos: .userInteractive).async {
-                AddManager().addingСhannels(nameUrlTextFieldText, urlAddressTextFieldText)
+                let storageManager = StorageManager()
+                if storageManager.searchChannelByURL(urlAddressTextFieldText) != nil {
+                    DispatchQueue.main.async {
+                        self.callAlertExclusion(title: "Канал уже добален")
+                        let storageManager = StorageManager()
+                        storageManager.initializationRealm()
+                        storageManager.preservationOfOpenChannels(urlAddressTextFieldText)
+                    }
+                } else {
+                    AddManager().addingСhannels(nameUrlTextFieldText, urlAddressTextFieldText)
+                }
             }
         }
         
@@ -59,5 +66,14 @@ extension MenuViewController {
         
         self.present(alertController, animated: true)
         
+    }
+}
+
+extension MenuViewController {
+    func callAlertExclusion(title: String) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
 }

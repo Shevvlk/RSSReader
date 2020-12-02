@@ -89,7 +89,9 @@ class HomeViewController: UITableViewController {
         
         guard let channelFirst = channelArr?.first else { return }
         
-        StorageManager().rewritingAnOpenArticle(channelFirst, indexPath.row)
+        let storageManager = StorageManager()
+        storageManager.initializationRealm()
+        storageManager.rewritingAnOpenArticle(channelFirst, indexPath.row)
         
         let sample = channelFirst.arrayModels[indexPath.row].depiction
         
@@ -108,12 +110,12 @@ class HomeViewController: UITableViewController {
         navigationController?.navigationBar.barStyle = .default
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Data-Information-24").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleMenuToggle))
-       
+        
     }
     
     //     MARK: - Переход на экран Rss каналов
     @objc func handleMenuToggle() {
-
+        
         delegate?.handleMenuToggle()
     }
     
@@ -131,7 +133,6 @@ class HomeViewController: UITableViewController {
         barTitleLabel.text = title
         
         self.navigationItem.titleView = barTitleLabel
-      
     }
     //    MARK: - Обновление статей
     @objc func updatingArticles() {

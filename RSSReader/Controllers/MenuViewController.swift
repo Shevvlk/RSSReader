@@ -8,7 +8,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
     var channelArr:                    Results<Channel>?
     var token:                         NotificationToken? = nil
     weak var delegateMenuController:   MenuControllerDelegate?
-    var realm:          Realm?
+    var realm:                         Realm?
     
     var titleViewLabel: UILabel = {
         let label = UILabel()
@@ -18,21 +18,17 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return label
     }()
     
-    
     let mynavigationItem: UINavigationItem = {
         let navigationItem = UINavigationItem()
-       
         return navigationItem
     }()
     
     let navigationBar : UINavigationBar = {
         let mynavigationBar = UINavigationBar()
-//        mynavigationBar.backgroundColor = .white
         mynavigationBar.layer.borderWidth = 0.3
         mynavigationBar.tintColor = .systemBlue
         mynavigationBar.isTranslucent = false
         mynavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        
         return mynavigationBar
     }()
     
@@ -51,8 +47,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         navigationBar.items = [mynavigationItem]
         
-        mynavigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(callAlert))
-//        mynavigationItem.leftBarButtonItem = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(handleCansel))
+        mynavigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(callAlertAdding))
         
         mynavigationItem.titleView = titleViewLabel
         tableView.delegate = self
@@ -61,7 +56,6 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         view.addSubview(navigationBar)
         view.addSubview(tableView)
-    
         
         constraintsTableandNavigationBar ()
         
@@ -69,13 +63,11 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         do {
             realm = try Realm()
         } catch {
-            let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
-            let buttond = UIAlertAction(title: "ОК", style: .cancel, handler: nil)
-            alert.addAction(buttond)
-            self.present(alert, animated: true, completion: nil)
+            callAlertExclusion(title: error.localizedDescription)
         }
         
         channelArr = realm?.objects(Channel.self).sorted(byKeyPath: "nameurl")
+        
         token = realm?.observe { [weak self] notification, realm in
             self?.tableView.reloadData()
         }
@@ -97,7 +89,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         if channel.lastOpenChannel {
             
             cell.backgroundColor = #colorLiteral(red: 0, green: 0.5294117647, blue: 1, alpha: 0.2142032851)
-       
+            
         } else {
             
             cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -116,11 +108,13 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         guard let urlAddress = channelArr?[indexPath.row].urlAddress else { return }
         
         DispatchQueue.global().async {
-            StorageManager().preservationOfOpenChannels(urlAddress)
+            let storageManager = StorageManager()
+            storageManager.initializationRealm()
+            storageManager.preservationOfOpenChannels(urlAddress)
         }
         
         delegateMenuController?.handleMenu()
-      
+        
     }
     
     // MARK: - Удаление ячейки
@@ -133,7 +127,9 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
             
             guard  let token = self.token else {return}
             
-            StorageManager().deleteChannel(сhannel, [token])
+            let storageManager = StorageManager()
+            storageManager.initializationRealm()
+            storageManager.deleteChannel(сhannel, [token])
             
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             
@@ -146,9 +142,8 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         configuration.performsFirstActionWithFullSwipe = true
         
         return configuration
-        
     }
-
+    
     
     // MARK: - Добавление констрейнтов
     func constraintsTableandNavigationBar () {

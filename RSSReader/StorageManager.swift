@@ -4,14 +4,24 @@ import RealmSwift
 
 class StorageManager {
     
-    let realm = try! Realm()
+    var realm: Realm?
+    
+    
+    func initializationRealm () {
+        
+        do {
+            realm = try Realm()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
     // Сохранение новых каналов
     
     func saveNewChannel ( _ channel : Channel, _ arrayModels: [Model] ) {
-        try! realm.write {
+        try! realm?.write {
             channel.arrayModels.append(objectsIn: arrayModels)
-            realm.add(channel)
+            realm?.add(channel)
         }
         
     }
@@ -19,7 +29,7 @@ class StorageManager {
     // Сохранение новых новостей
     
     func saveNewArticlesChannel (_ channel: Channel, _ arrayModels: [Model] ) {
-        try! realm.write {
+        try! realm?.write {
             channel.arrayModels.insert(contentsOf: arrayModels, at: 0)
         }
     }
@@ -27,9 +37,9 @@ class StorageManager {
     // Удаление каналов
     
     func deleteChannel ( _ channel : Channel, _ token: [NotificationToken]) {
-        try! realm.write(withoutNotifying: token) {
-            realm.delete(channel.arrayModels)
-            realm.delete(channel)
+        try! realm?.write(withoutNotifying: token) {
+            realm?.delete(channel.arrayModels)
+            realm?.delete(channel)
         }
     }
     
@@ -37,7 +47,7 @@ class StorageManager {
     
     func searchChannelByURL (_ urlAddress: String) -> Channel?  {
         
-        return realm.object(ofType: Channel.self, forPrimaryKey:  urlAddress)
+        return realm?.object(ofType: Channel.self, forPrimaryKey:  urlAddress)
     }
     
     // Пересохранение метки выбранных каналов
@@ -46,10 +56,10 @@ class StorageManager {
         
         guard let channel = searchChannelByURL(urlAddress) else { return }
         
-        let channelfirst = realm.objects(Channel.self).filter("lastOpenChannel == true")
+        let channelfirst = realm?.objects(Channel.self).filter("lastOpenChannel == true")
         
-        try! realm.write {
-            channelfirst.first?.lastOpenChannel = false
+        try! realm?.write {
+            channelfirst?.first?.lastOpenChannel = false
             channel.lastOpenChannel = true
         }
     }
@@ -57,18 +67,18 @@ class StorageManager {
     // Пересохранение метки новостей
     
     func rewritingAnOpenArticle ( _ channel : Channel, _ indexPathRow : Int ) {
-        try! realm.write {
+        try! realm?.write {
             channel.arrayModels[indexPathRow].cell = true
         }
     }
     
-    // Поиск по дате
+    // Поиск по заголовку
     
     func comparisonOfArticles ( _ title: String) -> Bool {
         
-        let channelPredicateWithModels = realm.objects(Channel.self).filter("ANY arrayModels.title == '\(title)'")
+        let channelPredicateWithModels = realm?.objects(Channel.self).filter("ANY arrayModels.title == '\(title)'")
         
-        if channelPredicateWithModels.isEmpty {
+        if ((channelPredicateWithModels?.isEmpty) != nil) {
             return true
         } else {
             return false
