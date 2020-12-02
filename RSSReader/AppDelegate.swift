@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  RSSReader
-//
-//  Created by Alexandr on 02.12.2020.
-//
+
 
 import UIKit
 
