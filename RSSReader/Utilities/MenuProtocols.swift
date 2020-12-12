@@ -1,9 +1,9 @@
 
 protocol HomeControllerDelegate: AnyObject {
-    func handleMenuToggle()
+    func toggleMenu()
 }
 
 
 protocol MenuControllerDelegate: AnyObject {
-    func handleMenu()
+    func toggleHome()
 }

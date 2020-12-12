@@ -3,43 +3,61 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    var menuController:    MenuViewController!
-    var homeController:    HomeViewController!
-    var centerController:  UIViewController!
-    var blackScreen:       UIView!
-    var isExpanded = false
+    private var menuController:    MenuViewController!
+    private var homeController:    HomeViewController!
+    private var centerController:  UIViewController!
+    private var blackScreen:       UIView!
+    private var isExpanded = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureHomeController ()
-        
     }
     
-    // MARK: - Создание дочерних контроллеров представления
+    /// Создание дочернего контролера представления
     func configureHomeController () {
-        homeController = HomeViewController()
+        let assemby = HomeViewControllerAssembly()
+        homeController = assemby.createViewController()
         homeController.delegate = self
         centerController = UINavigationController(rootViewController: homeController)
         view.addSubview(centerController.view)
         addChild(centerController)
         centerController.didMove(toParent: self)
-        
     }
     
-    // MARK: - Создание дочернего контроллера выбора канала
+    /// Создание дочернего контролера представления
     func configureMenuController() {
         if menuController == nil {
-            menuController = MenuViewController()
-            menuController.delegateMenuController = self
+            let assemby = MenuViewControllerAssembly()
+            menuController = assemby.createViewController()
+            menuController.delegate = self
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
             menuController.didMove(toParent: self )
         }
     }
     
-    // MARK: - Реализация слайд - меню
+    func blackScreenCustomization() {
+        blackScreen = UIView()
+        blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.82)
+        blackScreen.isHidden = !isExpanded
+        blackScreen.layer.zPosition = 100
+        self.view.addSubview(blackScreen)
+        let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(blackScreenTapAction(sender:)))
+        blackScreen.addGestureRecognizer(tapGestRecognizer)
+    }
+    
+    /// Вызов функции открытия и закрыти слайд меню при нажатии на view
+    @objc func blackScreenTapAction(sender: UITapGestureRecognizer) {
+        blackScreen.isHidden = isExpanded
+        isExpanded = !isExpanded
+        blackScreen.frame = self.view.bounds
+        showMenuController (shouldExpand: isExpanded)
+    }
+    
+    /// Открытие и закрытие слайд меню
+    /// - Parameter shouldExpand: Переменная информирующая о состоянии слайд меню (открыто или закрыто)
     func showMenuController (shouldExpand: Bool) {
         if shouldExpand {
             UIView.animate(withDuration: 0.5,
@@ -65,30 +83,11 @@ class ContainerViewController: UIViewController {
                            completion: nil)
         }
     }
-    
-    @objc func blackScreenTapAction(sender: UITapGestureRecognizer) {
-        blackScreen.isHidden = isExpanded
-        isExpanded = !isExpanded
-        blackScreen.frame = self.view.bounds
-        showMenuController (shouldExpand: isExpanded)
-    }
-    
-    func blackScreenCustomization() {
-        blackScreen = UIView()
-        blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.9138484589)
-        blackScreen.isHidden = !isExpanded
-        blackScreen.layer.zPosition = 100
-        self.view.addSubview(blackScreen)
-        
-        let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(blackScreenTapAction(sender:)))
-        blackScreen.addGestureRecognizer(tapGestRecognizer)
-    }
-    
 }
 
-// MARK: - Передача информации из HomeController
+/// Передача информации из HomeController (переход на  MenuController)
 extension ContainerViewController: HomeControllerDelegate {
-    func handleMenuToggle() {
+    func toggleMenu() {
         if !isExpanded {
             configureMenuController()
         }
@@ -98,15 +97,12 @@ extension ContainerViewController: HomeControllerDelegate {
     }
 }
 
-
-// MARK: - Передача информации из MenuController
+/// Передача информации из MenuController (переход на  HomeController )
 extension ContainerViewController: MenuControllerDelegate {
-    func handleMenu() {
+    func toggleHome() {
         blackScreen.isHidden = isExpanded
         blackScreen.frame = self.view.bounds
         isExpanded = !isExpanded
         showMenuController (shouldExpand: isExpanded)
-        homeController.tableView.reloadData()
     }
-    
 }

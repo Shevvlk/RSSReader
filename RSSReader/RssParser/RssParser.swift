@@ -4,27 +4,26 @@ import UIKit
 
 class RssParser: NSObject, XMLParserDelegate {
     
-    struct CopyModel {
+    private struct CopyNews {
         var title:      String
         var date:       String
         var depiction:  String
     }
     
-    var parser:       XMLParser?
-    var copyModel:    CopyModel? = nil
-    var currentTag:   String?
-    var arrayModels:  [Model] = []
+    private var parser:     XMLParser?
+    private var copyNews:   CopyNews? = nil
+    private var currentTag: String?
+    private var arrayNews:  [News] = []
     
-    var isExpanded = false
+    private var isExpanded = false
     
     // MARK: - Запуск синтаксического анализа
-    func startParsingWithContentsOfURL (url: URL ) -> [Model] {
-        
+    func startParsingWithContentsOfURL (url: URL ) -> [News] {
         let parser = XMLParser(contentsOf: url)
         parser?.delegate = self
         parser?.parse()
         
-        return arrayModels
+        return arrayNews
     }
     
     private func parser(parser: XMLParser, parseErrorOccurred parseError: NSError) {
@@ -36,28 +35,25 @@ class RssParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-
         currentTag = elementName
-        
         if elementName == "item" {
-            copyModel = CopyModel(title: "", date: "", depiction: "")
+            copyNews = CopyNews(title: "", date: "", depiction: "")
         }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
-        
-        if let copyModelTwo = copyModel {
+        if let copyNewsTwo = copyNews {
             
             switch currentTag {
             
             case "title":
-                copyModel?.title = copyModelTwo.title + string.replacingOccurrences(of: "\n", with: "")
-                copyModel?.depiction = copyModelTwo.depiction + string
+                copyNews?.title = copyNewsTwo.title + string.replacingOccurrences(of: "\n", with: "")
+                copyNews?.depiction = copyNewsTwo.depiction + string
             case "pubDate":
-                if let date = dateRU(dateString: string)  {copyModel?.date = date}
+                if let date = dateRU(dateString: string)  {copyNews?.date = date}
             case "description":
-                copyModel?.depiction = copyModelTwo.depiction + string
+                copyNews?.depiction = copyNewsTwo.depiction + string
             default:
                 break
             }
@@ -68,15 +64,15 @@ class RssParser: NSObject, XMLParserDelegate {
         
         if elementName == "item" {
             
-            if let copyModelTwo = copyModel {
-                if copyModelTwo.date == "" {
-                    copyModel?.date = "Дата и время не установлены"
+            if let copyNewsTwo = copyNews {
+                if copyNewsTwo.date == "" {
+                    copyNews?.date = "Дата и время не установлены"
                 }
-                let model = Model(copyModelTwo.title, copyModelTwo.date , copyModelTwo.depiction)
-                arrayModels.append(model)
+                let news = News(copyNewsTwo.title, copyNewsTwo.date , copyNewsTwo.depiction)
+                arrayNews.append(news)
             }
             
-            copyModel = nil
+            copyNews = nil
         }
     }
     

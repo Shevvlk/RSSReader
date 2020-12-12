@@ -5,7 +5,7 @@ import RealmSwift
 
 extension MenuViewController {
     
-    // MARK: - AlertController для Добавление канала
+    /// AlertController для Добавление канала
     @objc func callAlertAdding () {
         
         let alertController = UIAlertController(title: "Добавление канала", message: "Введите название канала и URL", preferredStyle: .alert)
@@ -24,24 +24,16 @@ extension MenuViewController {
             }
             
             DispatchQueue.global(qos: .userInteractive).async {
-                let storageManager = StorageManager()
-                storageManager.initializationRealm()
-                if storageManager.searchChannelByURL(urlAddressTextFieldText) != nil {
-                    storageManager.preservationOfOpenChannels(urlAddressTextFieldText)
-                    DispatchQueue.main.async { [unowned self] in
-                        self.callAlertExclusion(title: "Канал уже добален")
+                self.addManager.addingСhannels(nameUrlTextFieldText, urlAddressTextFieldText) {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.callAlertExclusion(title: "Канал уже добален")
                     }
-                } else {
-                    AddManager().addingСhannels(nameUrlTextFieldText, urlAddressTextFieldText)
                 }
             }
         }
-        
-        
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
         saveAction.isEnabled = false
-        
         
         alertController.addTextField { (nameText) in
             
@@ -57,17 +49,14 @@ extension MenuViewController {
             }
         }
         
-        
         alertController.addTextField { (urlText) in
             urlText.placeholder = "Введите URL адрес"
         }
-        
-        
         self.present(alertController, animated: true)
-        
     }
 }
 
+/// AlertController для уведомлений
 extension MenuViewController {
     func callAlertExclusion(title: String) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
