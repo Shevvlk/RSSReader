@@ -84,7 +84,7 @@ class HomeViewController: UITableViewController {
             
         } else {
             
-            cell.markView.backgroundColor = #colorLiteral(red: 0, green: 0.5294117647, blue: 1, alpha: 0.2142032851)
+            cell.markView.backgroundColor = #colorLiteral(red: 0, green: 0.5294117647, blue: 1, alpha: 0.3991687093)
         }
         
         cell.headingLabel.text = channelFirst.arrayNews[indexPath.row].title

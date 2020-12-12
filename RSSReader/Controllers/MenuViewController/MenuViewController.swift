@@ -65,7 +65,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         mynavigationItem.titleView = titleViewLabel
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(CustomMenuTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         view.addSubview(navigationBar)
         view.addSubview(tableView)
@@ -94,20 +94,19 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? CustomMenuTableViewCell else { fatalError("Unable to Dequeue Image Table View Cell") }
         
         guard let channel = channelArr?[indexPath.row] else {return cell}
         
         if channel.lastOpenChannel {
             
-            cell.backgroundColor = #colorLiteral(red: 0, green: 0.5294117647, blue: 1, alpha: 0.2142032851)
+            cell.markImage.isHidden = false
             
         } else {
             
-            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            cell.markImage.isHidden = true
         }
-        cell.textLabel?.font = UIFont(name: "Geeza Pro", size: 18)
-        cell.textLabel?.text = channel.nameurl
+        cell.headingLabel.text = channel.nameurl
         return cell
     }
     
@@ -121,6 +120,10 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
             self.addManager.openChannels(urlAddress)
         }
         delegate?.toggleHome()
+    }
+    
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
     
     /// Удаление ячейки

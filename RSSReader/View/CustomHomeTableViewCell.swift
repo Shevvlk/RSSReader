@@ -4,7 +4,7 @@ import UIKit
 // MARK: - Настройка кастомной ячейки
 class CustomHomeTableViewCell: UITableViewCell {
     
-    // MARK: - Выделение ячейки
+    /// Метка ячейки
     var markView: UIView = {
         let mark = UIView()
         mark.layer.cornerRadius = 5
@@ -13,7 +13,7 @@ class CustomHomeTableViewCell: UITableViewCell {
         return mark
     }()
     
-    // MARK: - Заголовок
+    /// Заголовок
     let headingLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
@@ -23,7 +23,7 @@ class CustomHomeTableViewCell: UITableViewCell {
         return label
     }()
  
-    // MARK: - Подзаголовок
+    /// Подзаголовок
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Geeza Pro", size: 11)
@@ -32,7 +32,7 @@ class CustomHomeTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Контейнер
+    ///  Контейнер
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +55,6 @@ class CustomHomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Констрейнты
     func constraints () {
         markView.topAnchor.constraint(equalTo:self.contentView.topAnchor).isActive = true
         markView.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true

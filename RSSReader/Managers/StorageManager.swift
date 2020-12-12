@@ -69,4 +69,11 @@ class StorageManager {
         }
         return channelPredicateWithNews.isEmpty
     }
+    
+    func searchCountOpenNews ( _ title: String) -> Bool {
+        guard let channelPredicateWithNews = realm?.objects(Channel.self).filter("ANY arrayNews.title == '\(title)'") else {
+            return false
+        }
+        return channelPredicateWithNews.isEmpty
+    }
 }

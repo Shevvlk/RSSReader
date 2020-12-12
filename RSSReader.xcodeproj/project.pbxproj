@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D409AF7124EEEA8AF41E282 /* Pods_RSSReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D1ED9C9935ED2F7D3E38C74 /* Pods_RSSReader.framework */; };
+		A838D26D258501B00093643C /* CustomMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A838D26C258501B00093643C /* CustomMenuTableViewCell.swift */; };
 		A858C2B32577EAA700754A4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858C2B22577EAA700754A4E /* AppDelegate.swift */; };
 		A858C2B52577EAA700754A4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858C2B42577EAA700754A4E /* SceneDelegate.swift */; };
 		A858C2B72577EAA700754A4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858C2B62577EAA700754A4E /* HomeViewController.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		16FD3DC520F7AB55F9740FE3 /* Pods-RSSReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSReader.release.xcconfig"; path = "Target Support Files/Pods-RSSReader/Pods-RSSReader.release.xcconfig"; sourceTree = "<group>"; };
 		2D1ED9C9935ED2F7D3E38C74 /* Pods_RSSReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSSReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A838D26C258501B00093643C /* CustomMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuTableViewCell.swift; sourceTree = "<group>"; };
 		A858C2AF2577EAA700754A4E /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A858C2B22577EAA700754A4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A858C2B42577EAA700754A4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				A85A65C42577FA180052146F /* CustomHomeTableViewCell.swift */,
+				A838D26C258501B00093643C /* CustomMenuTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				A85A65BB2577F9B30052146F /* MenuViewController.swift in Sources */,
 				A858C2B32577EAA700754A4E /* AppDelegate.swift in Sources */,
 				A85A65B02577F8F80052146F /* ContainerViewController.swift in Sources */,
+				A838D26D258501B00093643C /* CustomMenuTableViewCell.swift in Sources */,
 				A85A65BE2577F9DD0052146F /* MenuViewController+alertControllers.swift in Sources */,
 				A858C2B52577EAA700754A4E /* SceneDelegate.swift in Sources */,
 				A8BE36292582BBCA00B641A0 /* HomeViewController+alertControllers.swift in Sources */,
