@@ -107,6 +107,7 @@ class HomeViewController: UITableViewController {
         DispatchQueue.global().async {
             let text = sample.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "Geeza Pro", size: 17), csscolor: "black", lineheight: 20, csstextalign: "left")
             DispatchQueue.main.async {
+                newsReaderController.activityIndicator.isHidden = true
                 newsReaderController.newsText.attributedText = text
             }
         }
