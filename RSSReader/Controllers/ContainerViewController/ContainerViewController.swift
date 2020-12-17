@@ -17,8 +17,8 @@ class ContainerViewController: UIViewController {
     
     /// Создание дочернего контролера представления
     func configureHomeController () {
-        let assemby = HomeViewControllerAssembly()
-        homeController = assemby.createViewController()
+        let assembly = HomeViewControllerAssembly()
+        homeController = assembly.createViewController()
         homeController.delegate = self
         centerController = UINavigationController(rootViewController: homeController)
         view.addSubview(centerController.view)
@@ -29,8 +29,8 @@ class ContainerViewController: UIViewController {
     /// Создание дочернего контролера представления
     func configureMenuController() {
         if menuController == nil {
-            let assemby = MenuViewControllerAssembly()
-            menuController = assemby.createViewController()
+            let assembly = MenuViewControllerAssembly()
+            menuController = assembly.createViewController()
             menuController.delegate = self
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
@@ -42,7 +42,6 @@ class ContainerViewController: UIViewController {
         blackScreen = UIView()
         blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.82)
         blackScreen.isHidden = !isExpanded
-        blackScreen.layer.zPosition = 100
         self.view.addSubview(blackScreen)
         let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(blackScreenTapAction(sender:)))
         blackScreen.addGestureRecognizer(tapGestRecognizer)
