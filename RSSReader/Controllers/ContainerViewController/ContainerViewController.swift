@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController {
     
     func blackScreenCustomization() {
         blackScreen = UIView()
-        blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.82)
+        blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5969587434)
         blackScreen.isHidden = !isExpanded
         self.view.addSubview(blackScreen)
         let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(blackScreenTapAction(sender:)))
@@ -62,14 +62,14 @@ class ContainerViewController: UIViewController {
             UIView.animate(withDuration: 0.5,
                            delay: 0, usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
-                           options: .curveEaseInOut, animations: {
+                           options: .curveEaseOut, animations: {
                             self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80},
                            completion: nil)
             
             UIView.animate(withDuration: 0.5,
                            delay: 0, usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
-                           options: .curveEaseInOut,
+                           options: .curveEaseOut,
                            animations: { self.blackScreen.frame = CGRect(x: self.centerController.view.frame.origin.x, y: 0 , width:80, height: self.view.bounds.height)},
                            completion: nil)
         }
@@ -78,7 +78,7 @@ class ContainerViewController: UIViewController {
                            delay: 0,
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
-                           options: .curveEaseInOut, animations: { self.centerController.view.frame.origin.x = 0 },
+                           options: .curveEaseOut, animations: { self.centerController.view.frame.origin.x = 0 },
                            completion: nil)
         }
     }

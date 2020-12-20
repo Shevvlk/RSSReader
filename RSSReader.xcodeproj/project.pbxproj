@@ -25,6 +25,7 @@
 		A85A65CE2577FA710052146F /* AddManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A65CD2577FA710052146F /* AddManager.swift */; };
 		A85A65D22577FA8C0052146F /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A65D12577FA8C0052146F /* StorageManager.swift */; };
 		A85A65E62578076B0052146F /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A65E52578076B0052146F /* Channel.swift */; };
+		A86F7E71258F74900070FFF0 /* PreceptBackgroundView .swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F7E70258F74900070FFF0 /* PreceptBackgroundView .swift */; };
 		A86FA9EA2582BDB00015A040 /* MenuViewControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86FA9E92582BDB00015A040 /* MenuViewControllerAssembly.swift */; };
 		A8BE36142582B71A00B641A0 /* AddManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE36132582B71A00B641A0 /* AddManagerProtocol.swift */; };
 		A8BE36172582B74700B641A0 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE36162582B74700B641A0 /* News.swift */; };
@@ -54,6 +55,7 @@
 		A85A65CD2577FA710052146F /* AddManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManager.swift; sourceTree = "<group>"; };
 		A85A65D12577FA8C0052146F /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		A85A65E52578076B0052146F /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		A86F7E70258F74900070FFF0 /* PreceptBackgroundView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PreceptBackgroundView .swift"; path = "../../../../../../../../../Applications/PreceptBackgroundView .swift"; sourceTree = "<group>"; };
 		A86FA9E92582BDB00015A040 /* MenuViewControllerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewControllerAssembly.swift; sourceTree = "<group>"; };
 		A8BE36132582B71A00B641A0 /* AddManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManagerProtocol.swift; sourceTree = "<group>"; };
 		A8BE36162582B74700B641A0 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			children = (
 				A85A65C42577FA180052146F /* CustomHomeTableViewCell.swift */,
 				A838D26C258501B00093643C /* CustomMenuTableViewCell.swift */,
+				A86F7E70258F74900070FFF0 /* PreceptBackgroundView .swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				A85A65C22577FA000052146F /* NewsReaderViewController.swift in Sources */,
 				A85A65B32577F9300052146F /* MenuProtocols.swift in Sources */,
 				A8BE36172582B74700B641A0 /* News.swift in Sources */,
+				A86F7E71258F74900070FFF0 /* PreceptBackgroundView .swift in Sources */,
 				A86FA9EA2582BDB00015A040 /* MenuViewControllerAssembly.swift in Sources */,
 				A8BE36242582BAD200B641A0 /* HomeViewControllerAssembly.swift in Sources */,
 				A858C2B72577EAA700754A4E /* HomeViewController.swift in Sources */,

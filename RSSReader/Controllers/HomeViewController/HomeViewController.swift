@@ -6,10 +6,13 @@ class HomeViewController: UITableViewController {
     weak var delegate:  HomeControllerDelegate?
     
     private var channelArr:  Results<Channel>?
+    
+    
     private var token:       NotificationToken? = nil
     private var realm:       Realm?
     private let addManager:  AddManagerProtocol
     private var mistake:     String?
+    private let backgroundView = PreceptBackgroundView()
     
     init(addManager: AddManagerProtocol) {
         self.addManager = addManager
@@ -36,6 +39,8 @@ class HomeViewController: UITableViewController {
         
         configureNavigationBar()
         
+        tableView.backgroundView = backgroundView
+        tableView.tableFooterView = UIView()
         tableView.register(CustomHomeTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         let refreshControl = UIRefreshControl()
@@ -52,10 +57,14 @@ class HomeViewController: UITableViewController {
         channelArr = realm?.objects(Channel.self).filter("lastOpenChannel == true")
         
         token = realm?.observe { [weak self] notification, realm in
+            if self?.channelArr?.count != 0  {
+                self?.backgroundView.labelDescription.isHidden = true
+            }else {
+                self?.backgroundView.labelDescription.isHidden = false
+            }
             self?.navigationBarTitle()
             self?.tableView.reloadData()
         }
-        
         navigationBarTitle()
         updatingArticles()
     }
@@ -116,6 +125,7 @@ class HomeViewController: UITableViewController {
     
     /// Настройка навигационного бара
     func configureNavigationBar() {
+        navigationController?.view.layer.borderWidth = 0.3
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationController?.navigationBar.barStyle = .default
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleMenu))
@@ -130,7 +140,7 @@ class HomeViewController: UITableViewController {
     func navigationBarTitle() {
         
         if let channelFirst = channelArr?.first { title = channelFirst.nameurl }
-        else { title = "Добавьте Rss канал" }
+        else { title = "Новостная лента" }
         
         barTitleLabel.text = title
         self.navigationItem.titleView = barTitleLabel
@@ -138,7 +148,11 @@ class HomeViewController: UITableViewController {
     
     /// Обновление статей
     @objc func updatingArticles() {
-        guard let channelFirst = channelArr?.first else { return }
+        guard let channelFirst = channelArr?.first
+        else {
+            tableView.refreshControl?.endRefreshing()
+            return
+        }
         let urlAddress = channelFirst.urlAddress
         DispatchQueue.global(qos: .userInteractive).async {[weak self] in
             self?.addManager.addingNewArticles(urlAddress)

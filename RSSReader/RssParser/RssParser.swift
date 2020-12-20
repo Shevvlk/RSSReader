@@ -49,7 +49,7 @@ class RssParser: NSObject, XMLParserDelegate {
             
             case "title":
                 copyNews?.title = copyNewsTwo.title + string.replacingOccurrences(of: "\n", with: "")
-                copyNews?.depiction = copyNewsTwo.depiction + string + "\n"
+                copyNews?.depiction = copyNewsTwo.depiction + string + "</p>"
             case "pubDate":
                 if let date = dateRU(dateString: string)  {copyNews?.date = date}
             case "description":

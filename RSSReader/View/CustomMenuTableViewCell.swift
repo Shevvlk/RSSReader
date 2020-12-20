@@ -6,7 +6,7 @@ class CustomMenuTableViewCell: UITableViewCell {
     /// Метка ячейки
     var markImage: UIImageView = {
         let mark = UIImageView()
-        mark.image = UIImage(systemName: "checkmark")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
+        mark.image = UIImage(systemName: "checkmark")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
         mark.translatesAutoresizingMaskIntoConstraints = false
         return mark
     }()

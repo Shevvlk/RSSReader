@@ -37,7 +37,6 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     private let navigationBar : UINavigationBar = {
         let mynavigationBar = UINavigationBar()
-        mynavigationBar.layer.borderWidth = 0.3
         mynavigationBar.tintColor = .systemBlue
         mynavigationBar.isTranslucent = false
         mynavigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +45,8 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     private let tableView: UITableView = {
         let mytableView = UITableView()
+        mytableView.layer.borderWidth = 0.2
+        mytableView.layer.borderColor = UIColor.systemGray.cgColor
         mytableView.tableFooterView = UIView()
         mytableView.separatorInset = .zero
         mytableView.showsVerticalScrollIndicator = false
@@ -60,7 +61,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         navigationBar.items = [mynavigationItem]
         
-        mynavigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(callAlertAdding))
+        mynavigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(callAlertAdding))
         
         mynavigationItem.titleView = titleViewLabel
         tableView.delegate = self
@@ -152,7 +153,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
     func constraintsTableandNavigationBar () {
         
         navigationBar.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        navigationBar.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        navigationBar.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -80).isActive = true
         navigationBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
