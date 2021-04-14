@@ -1,10 +1,10 @@
 import UIKit
 
 // MARK: - Настройка кастомной ячейки
-class CustomMenuTableViewCell: UITableViewCell {
+final class CustomMenuTableViewCell: UITableViewCell {
     
     /// Метка ячейки
-    var markImage: UIImageView = {
+    var markImageView: UIImageView = {
         let mark = UIImageView()
         mark.image = UIImage(systemName: "checkmark")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
         mark.translatesAutoresizingMaskIntoConstraints = false
@@ -19,27 +19,29 @@ class CustomMenuTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
- 
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(markImage)
+        contentView.addSubview(markImageView)
         contentView.addSubview(headingLabel)
-        constraints ()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func constraints () {
-        markImage.topAnchor.constraint(equalTo:self.contentView.topAnchor,constant: 10).isActive = true
-        markImage.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor,constant: 3).isActive = true
-        markImage.widthAnchor.constraint(equalToConstant:20).isActive = true
-        markImage.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor, constant: -10).isActive = true
-        
-        headingLabel.topAnchor.constraint(equalTo:self.contentView.topAnchor).isActive = true
-        headingLabel.leadingAnchor.constraint(equalTo:self.markImage.trailingAnchor, constant: 4).isActive = true
-        headingLabel.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant: -80).isActive = true
-        headingLabel.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor).isActive = true
+    
+    private func setupConstraints () {
+        NSLayoutConstraint.activate([
+            markImageView.topAnchor.constraint(equalTo:self.contentView.topAnchor,constant: 10),
+            markImageView.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor,constant: 3),
+            markImageView.widthAnchor.constraint(equalToConstant:20),
+            markImageView.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor, constant: -10),
+            
+            headingLabel.topAnchor.constraint(equalTo:self.contentView.topAnchor),
+            headingLabel.leadingAnchor.constraint(equalTo:self.markImageView.trailingAnchor, constant: 4),
+            headingLabel.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant: -80),
+            headingLabel.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor)
+        ])
     }
 }

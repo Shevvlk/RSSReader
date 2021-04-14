@@ -2,11 +2,10 @@
 import UIKit
 import RealmSwift
 
-class HomeViewController: UITableViewController {
+final class HomeViewController: UITableViewController {
     weak var delegate:  HomeControllerDelegate?
     
     private var channelArr:  Results<Channel>?
-    
     
     private var token:       NotificationToken? = nil
     private var realm:       Realm?
@@ -124,7 +123,7 @@ class HomeViewController: UITableViewController {
     }
     
     /// Настройка навигационного бара
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationController?.view.layer.borderWidth = 0.3
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationController?.navigationBar.barStyle = .default
@@ -132,12 +131,12 @@ class HomeViewController: UITableViewController {
     }
     
     ///  Переход на  MenuViewController
-    @objc func toggleMenu() {
+    @objc private func toggleMenu() {
         delegate?.toggleMenu()
     }
     
     /// Настройка заголовка навигационного бара
-    func navigationBarTitle() {
+    private func navigationBarTitle() {
         
         if let channelFirst = channelArr?.first { title = channelFirst.nameurl }
         else { title = "Новостная лента" }
@@ -147,7 +146,7 @@ class HomeViewController: UITableViewController {
     }
     
     /// Обновление статей
-    @objc func updatingArticles() {
+    @objc private func updatingArticles() {
         guard let channelFirst = channelArr?.first
         else {
             tableView.refreshControl?.endRefreshing()

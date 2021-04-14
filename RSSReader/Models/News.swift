@@ -2,7 +2,7 @@
 import RealmSwift
 
 /// Модель данных новости
-class News: Object {
+final class News: Object {
     
     @objc dynamic var title = ""
     @objc dynamic var date = ""

@@ -1,9 +1,7 @@
 
-
 import RealmSwift
 
-
-class AddManager: AddManagerProtocol {
+final class AddManager: AddManagerProtocol {
     
     private let storageManager: StorageManager
     
@@ -50,7 +48,7 @@ class AddManager: AddManagerProtocol {
             storageManager.saveNewChannelAndNewNews(channel, arrayNewNews)
         }
     }
-     
+    
     /// Пересохранение метки просмотренных новостей
     func openNews (_ channel : Channel, _ indexPathRow : Int) {
         storageManager.rewritingOpenNews(channel, indexPathRow)

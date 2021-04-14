@@ -1,8 +1,7 @@
 
 import UIKit
 
-
-class RssParser: NSObject, XMLParserDelegate {
+final class RssParser: NSObject, XMLParserDelegate {
     
     private struct CopyNews {
         var title:      String
@@ -46,7 +45,6 @@ class RssParser: NSObject, XMLParserDelegate {
         if let copyNewsTwo = copyNews {
             
             switch currentTag {
-            
             case "title":
                 copyNews?.title = copyNewsTwo.title + string.replacingOccurrences(of: "\n", with: "")
                 copyNews?.depiction = copyNewsTwo.depiction + string + "</p>"
@@ -77,7 +75,7 @@ class RssParser: NSObject, XMLParserDelegate {
     }
     
     // Преобразование даты в стандарт RU
-    func dateRU (dateString: String) -> String? {
+    private func dateRU (dateString: String) -> String? {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"

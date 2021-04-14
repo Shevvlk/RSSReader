@@ -2,7 +2,7 @@
 import RealmSwift
 
 /// Модель данных канала
-class Channel: Object {
+final class Channel: Object {
     
     @objc dynamic var urlAddress = ""
     @objc dynamic var nameurl = ""

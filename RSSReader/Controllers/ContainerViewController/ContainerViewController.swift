@@ -1,7 +1,7 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+final class ContainerViewController: UIViewController {
     
     private var menuController:    MenuViewController!
     private var homeController:    HomeViewController!
@@ -9,14 +9,13 @@ class ContainerViewController: UIViewController {
     private var blackScreen:       UIView!
     private var isExpanded = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHomeController ()
+        configureHomeController()
     }
     
     /// Создание дочернего контролера представления
-    func configureHomeController () {
+    private func configureHomeController () {
         let assembly = HomeViewControllerAssembly()
         homeController = assembly.createViewController()
         homeController.delegate = self
@@ -27,7 +26,7 @@ class ContainerViewController: UIViewController {
     }
     
     /// Создание дочернего контролера представления
-    func configureMenuController() {
+    private func configureMenuController() {
         if menuController == nil {
             let assembly = MenuViewControllerAssembly()
             menuController = assembly.createViewController()
@@ -38,7 +37,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    func blackScreenCustomization() {
+    private func blackScreenCustomization() {
         blackScreen = UIView()
         blackScreen.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5969587434)
         blackScreen.isHidden = !isExpanded
@@ -48,7 +47,7 @@ class ContainerViewController: UIViewController {
     }
     
     /// Вызов функции открытия и закрыти слайд меню при нажатии на view
-    @objc func blackScreenTapAction(sender: UITapGestureRecognizer) {
+    @objc private func blackScreenTapAction(sender: UITapGestureRecognizer) {
         blackScreen.isHidden = isExpanded
         isExpanded = !isExpanded
         blackScreen.frame = self.view.bounds
@@ -57,7 +56,7 @@ class ContainerViewController: UIViewController {
     
     /// Открытие и закрытие слайд меню
     /// - Parameter shouldExpand: Переменная информирующая о состоянии слайд меню (открыто или закрыто)
-    func showMenuController (shouldExpand: Bool) {
+    private func showMenuController (shouldExpand: Bool) {
         if shouldExpand {
             UIView.animate(withDuration: 0.5,
                            delay: 0, usingSpringWithDamping: 0.8,

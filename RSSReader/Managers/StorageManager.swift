@@ -1,8 +1,7 @@
 
 import RealmSwift
 
-
-class StorageManager {
+final class StorageManager {
     
     private var realm: Realm? {
         do {

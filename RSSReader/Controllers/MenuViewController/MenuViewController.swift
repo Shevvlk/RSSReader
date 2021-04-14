@@ -3,7 +3,7 @@
 import UIKit
 import RealmSwift
 
-class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDataSource  {
+final class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     weak var delegate: MenuControllerDelegate?
     
@@ -17,11 +17,11 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         self.addManager = addManager
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private var titleViewLabel: UILabel = {
         let label = UILabel()
         label.text = "RSS Каналы"
@@ -72,7 +72,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         view.addSubview(tableView)
         
         constraintsTableandNavigationBar ()
-    
+        
         do {
             realm = try Realm()
         } catch {
@@ -101,11 +101,11 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         if channel.lastOpenChannel {
             
-            cell.markImage.isHidden = false
+            cell.markImageView.isHidden = false
             
         } else {
             
-            cell.markImage.isHidden = true
+            cell.markImageView.isHidden = true
         }
         cell.headingLabel.text = channel.nameurl
         return cell
@@ -123,7 +123,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         delegate?.toggleHome()
     }
     
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
     
@@ -150,7 +150,7 @@ class MenuViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return configuration
     }
     
-    func constraintsTableandNavigationBar () {
+    private func constraintsTableandNavigationBar () {
         
         navigationBar.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         navigationBar.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -80).isActive = true

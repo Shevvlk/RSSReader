@@ -2,7 +2,6 @@
 import UIKit
 
 // MARK: - Расширение для типа String (для чтения html формата)
-
 extension String {
     public var convertHtmlToNSAttributedString: NSAttributedString? {
         guard let data = data(using: .utf16) else {
