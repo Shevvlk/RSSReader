@@ -124,7 +124,10 @@ final class HomeViewController: UITableViewController {
     
     /// Настройка навигационного бара
     private func configureNavigationBar() {
-        navigationController?.view.layer.borderWidth = 0.3
+        navigationController?.view.layer.masksToBounds = false
+        navigationController?.view.layer.shadowRadius = 10
+        navigationController?.view.layer.shadowOpacity = 0.7
+        navigationController?.view.layer.shadowColor = UIColor.gray.cgColor
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationController?.navigationBar.barStyle = .default
         navigationItem.leftBarButtonItem =  UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleMenu))

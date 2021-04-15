@@ -17,7 +17,7 @@ final class RssParser: NSObject, XMLParserDelegate {
     private var isExpanded = false
     
     // MARK: - Запуск синтаксического анализа
-    func startParsingWithContentsOfURL (url: URL ) -> [News] {
+    func startParsingWithContentsOfURL (url: URL) -> [News] {
         let parser = XMLParser(contentsOf: url)
         parser?.delegate = self
         parser?.parse()
